@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6efe2">
+<title>Alma Perfumería</title>
+<meta name="description" content="Alma Perfumería: perfumes de nicho y diseñador con visor 3D, sumiller olfativo y pedido por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+</head>
+<body>
+
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Bienvenida a Alma Perfumería">
+  <canvas id="introDust" aria-hidden="true"></canvas>
+  <div class="intro-in" id="introIn">
+    <p class="in-script">Bienvenido a</p>
+    <div class="in-logo"><img src="img/logo-brown.png" alt="Alma Perfumería" width="1515" height="753"></div>
+    <p class="in-sub">Perfumes de nicho y diseñador</p>
+    <button class="in-btn" id="inEnter" type="button">Entrar</button>
+  </div>
+</div>
+
+<a class="skip" href="#coleccion">Ir a la colección</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="logo" href="#inicio" aria-label="Alma Perfumería, inicio"><img src="img/logo-brown.png" alt="Alma Perfumería" width="1515" height="753"></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#coleccion">Colección</a><a href="#nicho">Nicho</a><a href="#sommelier">Sumiller</a><a href="#layering">Mezclas</a><a href="#concierge">Pedido VIP</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="favBtn" type="button" aria-label="Ver favoritos"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.5 2.8c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="badge" id="favCount" hidden>0</span></button>
+      <button class="cart-btn" id="cartBtn" type="button" aria-label="Abrir pedido"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Mi pedido</span><span class="badge" id="cartCount" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="story" id="inicio" aria-label="Recorrido por las familias olfativas">
+  <h1 class="vh">Alma Perfumería, perfumes de nicho y diseñador</h1>
+  <div class="story-pin">
+    <div class="story-stage" id="storyStage">
+      <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
+      <img class="hero-img" id="heroImg" alt="" decoding="async">
+    </div>
+    <div class="story-copy" id="storyCopy" aria-live="polite">
+      <p class="kicker" id="chKicker"></p>
+      <h2 class="ch-title" id="chTitle"></h2>
+      <p class="lead" id="chLine"></p>
+      <div class="ch-perf"><span class="ch-house" id="chHouse"></span><strong id="chName"></strong><div class="ch-notes" id="chNotes"></div></div>
+      <div class="cta-row"><button class="btn btn-gold" id="chOpen" type="button">Ver ficha</button><button class="btn btn-ghost" id="chAdd" type="button">Añadir a mi pedido</button></div>
+    </div>
+    <ol class="chrail" id="chRail" aria-label="Familias olfativas"></ol>
+    <p class="scroll-cue" id="cue"><i aria-hidden="true"></i>Desliza para ver la colección</p>
+  </div>
+</section>
+
+<div class="mq" aria-label="Casas de perfumería"><div class="mq-track" id="mq"></div></div>
+
+<section class="sec" id="nicho">
+  <div class="sec-head row-head"><div><h2 class="rv">Nichos que cuesta encontrar</h2><p class="sub">Casas pequeñas, tiradas cortas y fórmulas que no se parecen a nada. Desliza para verlos todos.</p></div><div class="arrows"><button class="icon-btn" id="railPrev" type="button" aria-label="Anterior">←</button><button class="icon-btn" id="railNext" type="button" aria-label="Siguiente">→</button></div></div>
+  <div class="rail" id="nicheRail" tabindex="0" aria-label="Fragancias de nicho"></div>
+</section>
+
+<section class="sec sec-alt" id="coleccion">
+  <div class="sec-head"><h2 class="rv">Colección</h2><p class="sub">Busca por nombre, casa o nota: vainilla, cuero, oud, bergamota, café.</p></div>
+  <div class="toolbar">
+    <div class="search"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="Aventus, Chanel, vainilla, oud…" autocomplete="off" aria-label="Buscar perfumes"></div>
+    <div class="chips" id="filters" role="group" aria-label="Filtrar por público"></div>
+    <div class="selects">
+      <label class="sel"><span>Familia</span><select id="famSel"></select></label>
+      <label class="sel"><span>Ordenar</span><select id="sortSel"><option value="rel">Relevancia</option><option value="az">Nombre A–Z</option><option value="house">Casa</option><option value="new">Novedades primero</option></select></label>
+    </div>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button class="btn btn-ghost" id="moreBtn" type="button" hidden>Mostrar más fragancias</button></div>
+</section>
+
+<section class="sec" id="sommelier">
+  <div class="sec-head"><h2 class="rv">El Sumiller Olfativo</h2><p class="sub">Tres preguntas. Comparamos tus respuestas con las notas de salida, corazón y fondo de todo el catálogo.</p></div>
+  <div class="som" id="som"></div>
+</section>
+
+<section class="sec sec-alt" id="layering">
+  <div class="sec-head"><h2 class="rv">Laboratorio de Mezclas</h2><p class="sub">Combina dos fragancias y mira cómo se mezclan sus acordes.</p></div>
+  <div class="lab">
+    <div class="lab-pick">
+      <label class="field"><span>Primera fragancia</span><input id="layA" list="dl" placeholder="Escribe un nombre" autocomplete="off"></label>
+      <span class="plus" aria-hidden="true">+</span>
+      <label class="field"><span>Segunda fragancia</span><input id="layB" list="dl" placeholder="Escribe un nombre" autocomplete="off"></label>
+      <datalist id="dl"></datalist>
+    </div>
+    <div class="lab-out" id="layOut"></div>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="concierge">
+  <div class="sec-head"><h2 class="rv">Pedidos VIP con atención personal</h2><p class="sub">Sin formularios ni registro. Eliges, enviamos el mensaje ya redactado y te atendemos en persona.</p></div>
+  <ol class="steps">
+    <li><h3>Elige tus fragancias</h3><p>Añade a Mi pedido las que quieras, desde la colección, el sumiller o el laboratorio de mezclas.</p></li>
+    <li><h3>Envía el pedido</h3><p>Se abre WhatsApp con la referencia, el nombre, la casa y las notas de cada perfume.</p></li>
+    <li><h3>Confirmamos contigo</h3><p>Te decimos disponibilidad, formato, precio y forma de pago y entrega.</p></li>
+  </ol>
+  <div class="cta-row"><button class="btn btn-cream" id="conciergeBtn" type="button">Abrir mi pedido</button></div>
+</section>
+</main>
+
+<footer class="foot"><img src="img/logo-cream.png" alt="Alma Perfumería" width="1515" height="753"><p id="footTxt">Catálogo 2026. Fotografías del catálogo 2026, ampliadas y retocadas para la web.</p></footer>
+
+<a class="wa-fab" id="waFab" target="_blank" rel="noopener" aria-label="Escribir a Alma Perfumería por WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.5 13.4L3.2 20.8l4.3-1.2A8.8 8.8 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8.6c.3 3 3 5.8 6.2 6.2l1-1.4-2-1-.9.8c-.9-.4-1.8-1.3-2.2-2.2l.8-.9-1-2z" fill="currentColor"/></svg></a>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Mi pedido" hidden>
+  <div class="drawer-head"><h2 id="drawerTitle">Mi pedido</h2><button class="icon-btn" id="drawerClose" type="button" aria-label="Cerrar">✕</button></div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</aside>
+
+<dialog id="dlg" class="modal" aria-label="Ficha de fragancia"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<noscript><p style="padding:2rem">Esta tienda necesita JavaScript para mostrar el catálogo.</p></noscript>
+
+<script src="js/perfumes.js"></script>
+<script src="js/photos.js"></script>
+<script src="js/three-scene.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
